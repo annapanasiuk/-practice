@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 // Абстрактний клас Flower, який встановлює загальний інтерфейс для квіток
 abstract class Flower
@@ -25,13 +25,19 @@ abstract class Flower
         return Name == other.Name && Color == other.Color && Price == other.Price;
     }
 
+    // Перевизначення методу ToString для виведення інформації про квітку
+    public override string ToString()
+    {
+        return $"Це {Color} {Name}. Ціна: {Price}$";
+    }
+
     // Абстрактний метод, який потрібно перевизначити у похідних класах
     public abstract void Blossom();
 
     // Віртуальний метод для виведення інформації про квітку
     public virtual void DisplayInfo()
     {
-        Console.WriteLine($"Це {Color} {Name}. Ціна: {Price}$");
+        Console.WriteLine(ToString());
     }
 }
 
@@ -95,6 +101,26 @@ class Chamomile : Flower
     }
 }
 
+// Новий клас для представлення орхідеї
+class Orchid : Flower
+{
+    // Конструктор класу Orchid
+    public Orchid(string color, double price) : base("Orchid", color, price) { }
+
+    // Перевизначення методу Blossom для Orchid
+    public override void Blossom()
+    {
+        Console.WriteLine($"{Color} {Name} розцвітає.");
+    }
+
+    // Перевизначення методу DisplayInfo для Orchid
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine("Ця орхідея дуже екзотична.");
+    }
+}
+
 // Головний клас програми
 class Program
 {
@@ -106,7 +132,8 @@ class Program
         {
             new Rose("Червона", 2.5),
             new Tulip("Жовта", 1.8),
-            new Chamomile("Біла", 1.0)
+            new Chamomile("Біла", 1.0),
+            new Orchid("Фіолетова", 5.0) // Додавання нової квітки - Орхідеї
         };
 
         double totalCost = 0; // Змінна для зберігання загальної вартості букету
